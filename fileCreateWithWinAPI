@@ -1,0 +1,28 @@
+#A sample code with usage of CreateFileW (WindowsAPI function) to create a file on user's desktop
+#include <wtypes.h>
+#include <Windows.h>
+#include <stdio.h>
+
+int main(){
+
+	//INVALID_HANDLE_VALUE is to initialize the hFile variable
+	HANDLE hFile = INVALID_HANDLE_VALUE;
+
+
+	//full path of the file that will be created
+	LPCWSTR filePath = L"C:\\Users\\MALDEV01\\Desktop\\maldev.txt";
+
+
+	//Call CreateFileW with the file path
+	hFile = CreateFileW(filePath, GENERIC_ALL, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+
+
+	//INVALID_HANDLE_VALUE is returned if CreateFileW fails. INVALID_HANDLE_VALUE indicates that a file could not be created. For details around why the file could not created, error code must be retrieved using GetLastError function
+	if (hFile == INVALID_HANDLE_VALUE) {
+		printf("[-] CreateFileW Api Function Failed With Error : %d\n", GetLastError());
+		return -1;
+	}
+
+	return 0;
+
+	}
